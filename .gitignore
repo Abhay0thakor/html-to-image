@@ -1,0 +1,17 @@
+# Binaries
+html-to-image
+html-to-image.exe
+
+# Output artifacts
+*.zip
+*.png
+*.jpeg
+*.jpg
+*.pdf
+
+# Vendor
+vendor/
+
+# OS specific
+.DS_Store
+Thumbs.db
