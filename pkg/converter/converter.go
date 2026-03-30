@@ -52,7 +52,7 @@ func (c *Converter) Convert(ctx context.Context, cfg models.ConversionConfig) ([
 	defer cancel()
 
 	// Set a per-tab timeout
-	tabCtx, cancel = context.WithTimeout(tabCtx, 45*time.Second)
+	tabCtx, cancel = context.WithTimeout(tabCtx, 90*time.Second)
 	defer cancel()
 
 	var buf []byte
@@ -88,26 +88,27 @@ func (c *Converter) Convert(ctx context.Context, cfg models.ConversionConfig) ([
 	}
 
 	// 3. Wait for load
-	if cfg.WaitUntil == "networkIdle" {
-		actions = append(actions, chromedp.Sleep(2*time.Second)) // Fallback for network idle
-	} else {
-		actions = append(actions, chromedp.Sleep(1*time.Second))
-	}
-
-	// Ensure document is ready
 	actions = append(actions, chromedp.ActionFunc(func(ctx context.Context) error {
+		// Wait for readyState == complete
 		var state string
-		for i := 0; i < 10; i++ {
+		for i := 0; i < 30; i++ { // max 15 seconds
 			if err := chromedp.Evaluate(`document.readyState`, &state).Do(ctx); err != nil {
 				return err
 			}
 			if state == "complete" {
-				return nil
+				break
 			}
 			time.Sleep(500 * time.Millisecond)
 		}
 		return nil
 	}))
+
+	if cfg.WaitUntil == "networkIdle" {
+		// Give some extra time for AJAX/Images
+		actions = append(actions, chromedp.Sleep(3*time.Second))
+	} else {
+		actions = append(actions, chromedp.Sleep(1*time.Second))
+	}
 
 	// 3.5 Inject CSS/JS
 	if cfg.CustomCSS != "" {
@@ -135,7 +136,7 @@ func (c *Converter) Convert(ctx context.Context, cfg models.ConversionConfig) ([
 				(async () => {
 					await new Promise((resolve) => {
 						var totalHeight = 0;
-						var distance = 100;
+						var distance = 200;
 						var timer = setInterval(() => {
 							var scrollHeight = document.body.scrollHeight;
 							window.scrollBy(0, distance);
@@ -145,14 +146,14 @@ func (c *Converter) Convert(ctx context.Context, cfg models.ConversionConfig) ([
 								clearInterval(timer);
 								resolve();
 							}
-						}, 100);
+						}, 150);
 					});
 				})()
 			`
 			return chromedp.Evaluate(script, nil).Do(ctx)
 		}))
-		// Wait a bit for images to lazy load after scroll
-		actions = append(actions, chromedp.Sleep(2*time.Second))
+		// Wait longer after scroll for images to settle
+		actions = append(actions, chromedp.Sleep(3*time.Second))
 	}
 
 	// 4. Capture
