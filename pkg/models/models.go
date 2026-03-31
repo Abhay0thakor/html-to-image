@@ -27,6 +27,7 @@ type ConversionConfig struct {
 	Headers      map[string]interface{}
 	Cookies      []map[string]interface{}
 	AutoScroll   bool
+	WaitTime     int // Extra wait time in seconds
 }
 
 type ConversionResult struct {

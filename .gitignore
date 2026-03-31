@@ -1,6 +1,7 @@
 # Binaries
-html-to-image
-html-to-image.exe
+/html-to-image
+/html-to-image.exe
+bin/
 
 # Output artifacts
 *.zip

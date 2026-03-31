@@ -8,8 +8,10 @@ height: 900
 scale: 1.5
 auto_scroll: true
 wait_until: "networkIdle"
-selector: "#tool-workspace > div"
+wait_time: 2
+# Note: selector is commented out here because it applies to ALL urls in this config
+# If you want to use a selector, it's best to run it for specific tool pages.
+# selector: "#tool-workspace > div"
 custom_css: |
   header, footer { display: none !important; }
   .ad-banner { display: none; }
-# For single tool capture use: ./html-to-image -c config.yaml -u https://www.toolsura.com/tools/json-formatter

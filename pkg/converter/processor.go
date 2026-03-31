@@ -34,8 +34,9 @@ func (p *Processor) ProcessBulk(ctx context.Context, configs []models.Conversion
 		go func() {
 			defer wg.Done()
 			for i := range jobs {
+				i := i // Capture i
 				start := time.Now()
-				cfg := configs[i]
+				cfg := configs[i] // Get config for this job
 
 				// Get name first if based on title
 				if cfg.NamingType == "title" {
@@ -46,6 +47,8 @@ func (p *Processor) ProcessBulk(ctx context.Context, configs []models.Conversion
 				}
 
 				name := p.namer.GetUniqueName(cfg.OutputName, cfg.OutputFormat)
+				cfg.OutputName = name
+
 				data, err := p.converter.Convert(ctx, cfg)
 				results[i] = models.ConversionResult{
 					Name:      name,

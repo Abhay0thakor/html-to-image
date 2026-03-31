@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"sync"
 
 	"github.com/user/html-to-image/pkg/models"
 )
@@ -39,6 +40,7 @@ func CreateZip(outputPath string, results []models.ConversionResult) error {
 }
 
 type Namer struct {
+	mu        sync.Mutex
 	usedNames map[string]int
 }
 
@@ -49,6 +51,9 @@ func NewNamer() *Namer {
 }
 
 func (n *Namer) GetUniqueName(name string, extension string) string {
+	n.mu.Lock()
+	defer n.mu.Unlock()
+
 	name = sanitizeFilename(name)
 	if extension != "" && !strings.HasPrefix(extension, ".") {
 		extension = "." + extension
