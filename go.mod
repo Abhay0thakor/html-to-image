@@ -1,4 +1,4 @@
-module github.com/user/html-to-image
+module github.com/Abhay0thakor/html-to-image
 
 go 1.26
 

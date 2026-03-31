@@ -3,7 +3,7 @@ package converter
 import (
 	"context"
 	"testing"
-	"github.com/user/html-to-image/pkg/models"
+	"github.com/Abhay0thakor/html-to-image/pkg/models"
 )
 
 func TestConvertRawHTML(t *testing.T) {

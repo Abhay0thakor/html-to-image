@@ -7,7 +7,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/user/html-to-image/pkg/models"
+	"github.com/Abhay0thakor/html-to-image/pkg/models"
 )
 
 func CreateZip(outputPath string, results []models.ConversionResult) error {

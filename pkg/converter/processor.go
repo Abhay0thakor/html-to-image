@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/schollz/progressbar/v3"
-	"github.com/user/html-to-image/pkg/models"
-	"github.com/user/html-to-image/pkg/utils"
+	"github.com/Abhay0thakor/html-to-image/pkg/models"
+	"github.com/Abhay0thakor/html-to-image/pkg/utils"
 )
 
 type Processor struct {

@@ -9,7 +9,7 @@ import (
 	"github.com/chromedp/cdproto/network"
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
-	"github.com/user/html-to-image/pkg/models"
+	"github.com/Abhay0thakor/html-to-image/pkg/models"
 )
 
 type Converter struct {

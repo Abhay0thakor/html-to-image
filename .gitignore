@@ -5,6 +5,7 @@ bin/
 
 # Output artifacts
 *.zip
+!examples/**/*.png
 *.png
 *.jpeg
 *.jpg

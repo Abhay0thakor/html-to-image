@@ -43,9 +43,14 @@ Maintains a single, long-lived Chromium process using a **Context Pool**. Concur
 - **Custom Injection**: Inject CSS or JS to hide banners, ads, or trigger specific UI states before capture.
 
 ---
-
 ## 🛠 Installation
 
+### Install via Go (Recommended)
+```bash
+go install github.com/Abhay0thakor/html-to-image/cmd/html-to-image@latest
+```
+
+### Local Build
 ```bash
 git clone https://github.com/Abhay0thakor/html-to-image.git
 cd html-to-image

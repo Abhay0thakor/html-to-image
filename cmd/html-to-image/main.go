@@ -9,9 +9,9 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"github.com/user/html-to-image/pkg/converter"
-	"github.com/user/html-to-image/pkg/models"
-	"github.com/user/html-to-image/pkg/utils"
+	"github.com/Abhay0thakor/html-to-image/pkg/converter"
+	"github.com/Abhay0thakor/html-to-image/pkg/models"
+	"github.com/Abhay0thakor/html-to-image/pkg/utils"
 	"gopkg.in/yaml.v3"
 )
 
